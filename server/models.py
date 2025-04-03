@@ -1,7 +1,12 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy_serializer import SerializerMixin
+from sqlalchemy import MetaData
 
-db = SQLAlchemy()
+metadata= MetaData(naming_convention={
+    "fk":"fk_%(table_name)s_%(column_name)s_%(referred_table_name)s",
+})
+
+db = SQLAlchemy(metadata=metadata)
 
 class Newsletter(db.Model, SerializerMixin):
     __tablename__ = 'newsletters'
